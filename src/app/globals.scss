@@ -1,4 +1,4 @@
-@import './general';
+@use './general' as *;
 
 html {
 	scroll-behavior: smooth;
@@ -12,4 +12,6 @@ html {
 
 body {
 	min-height: 100vh;
+	color: $colorForeground;
+	background-color: $colorBackground;
 }
