@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Post } from '@/lib/types/posts';
 import { FetchingError } from '@/components/fetching-error/fetching-error';
 import { PostCard } from '@/components/post-card/post-card';
+import { Loader } from '@/components/ui/loader/loader';
 
 import styles from './page.module.scss';
 
@@ -35,6 +36,12 @@ export default function CSR() {
 				<FetchingError code={error.code} message={error.message} />
 			) : (
 				<div className={styles.container}>
+					{isLoading && (
+						<div className={styles.loaderContainer}>
+							<Loader />
+						</div>
+					)}
+
 					{data.map((el) => (
 						<PostCard title={el.title} body={el.body} userId={el.userId} key={el.id} />
 					))}

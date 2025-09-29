@@ -14,3 +14,15 @@
 	gap: size(5);
 	padding: size(6);
 }
+
+.loaderContainer {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	background-color: oklch(from $colorMuted l c h / 0.32);
+	z-index: 1000;
+}
