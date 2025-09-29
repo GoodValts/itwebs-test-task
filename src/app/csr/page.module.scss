@@ -23,6 +23,6 @@
 	align-items: center;
 	width: 100vw;
 	height: 100vh;
-	background-color: oklch(from $colorMuted l c h / 0.32);
+	background-color: oklch(from $colorMuted l c h / 0.64);
 	z-index: 1000;
 }
