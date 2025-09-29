@@ -1,0 +1,16 @@
+@use '@/app/general' as *;
+
+.main {
+	display: flex;
+	justify-content: center;
+	min-width: 100vw;
+	min-height: 100vh;
+	background-color: $colorMutedBg;
+}
+
+.container {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: size(5);
+	padding: size(6);
+}

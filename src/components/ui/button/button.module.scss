@@ -1,26 +1,12 @@
-@use './general' as *;
+@use '@/app/general' as *;
 
-.main {
+.button {
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	min-width: 100vw;
-	min-height: 100vh;
-}
-
-.container {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	gap: size(3);
-}
-
-.link {
-	display: flex;
-	justify-content: center;
-	min-width: 96px;
+	gap: size(2);
 	color: $colorBackground;
 	background-color: $colorPrimary;
-	text-decoration: none;
+	border: 0px;
 	border-radius: size(2);
 	padding: size(2) size(3);
 
@@ -28,5 +14,13 @@
 		cursor: pointer;
 		background-color: $colorPrimaryLight;
 		border-color: $colorPrimaryLight;
+	}
+
+	&Destructive {
+		background-color: $colorDestructive;
+
+		@include onHover() {
+			background-color: $colorDestructiveLight;
+		}
 	}
 }

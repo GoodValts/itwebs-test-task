@@ -1,0 +1,19 @@
+@use '@/app/general' as *;
+
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: size(3);
+}
+
+.header {
+	text-align: center;
+	font-size: $fontLg;
+	color: $colorDestructive;
+}
+
+.text {
+	text-align: center;
+}

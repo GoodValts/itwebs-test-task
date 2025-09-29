@@ -10,7 +10,7 @@ export default function Home() {
 			<main className={styles.main}>
 				<div className={styles.container}>
 					{links.map((el) => (
-						<Link className={styles.link} href={el.toLowerCase()} key={el}>
+						<Link href={el.toLowerCase()} className={styles.link} key={el}>
 							{el}
 						</Link>
 					))}

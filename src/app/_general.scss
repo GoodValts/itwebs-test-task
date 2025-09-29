@@ -1,9 +1,19 @@
 $colorForeground: oklch(12.9% 0.042 264.695);
 $colorBackground: oklch(98.4% 0.003 247.858);
-$colorMuted: oklch(86.9% 0.022 252.894);
-$colorMutedBg: oklch(55.4% 0.046 257.417);
+
+$colorMuted: oklch(37.2% 0.044 257.287);
+$colorMutedBg: oklch(96.8% 0.007 247.896);
+
 $colorPrimary: oklch(68.5% 0.169 237.323);
 $colorPrimaryLight: oklch(74.6% 0.169 237.323);
+
+$colorDestructive: oklch(58.6% 0.253 17.585);
+$colorDestructiveLight: oklch(64.5% 0.246 16.439);
+
+$fontSm: 0.8rem;
+$fontBase: 1rem;
+$fontLg: 1.2rem;
+$fontXl: 1.5rem;
 
 $sizeMap: (
 	0: 0,
@@ -11,7 +21,8 @@ $sizeMap: (
 	2: 8px,
 	3: 12px,
 	4: 16px,
-	5: 24px,
+	5: 20px,
+	6: 24px,
 );
 
 @function size($key) {
@@ -29,21 +40,5 @@ $sizeMap: (
 @mixin mediaMobile {
 	@media (max-width: 767.98px) {
 		@content;
-	}
-}
-
-@mixin button {
-	display: flex;
-	justify-content: center;
-	gap: size(2);
-	color: $colorBackground;
-	background-color: $colorPrimary;
-	border: 1px solid $colorPrimary;
-	border-radius: size(2);
-	padding: size(2) size(3);
-
-	@include onHover() {
-		background-color: $colorPrimaryLight;
-		border-color: $colorPrimaryLight;
 	}
 }
