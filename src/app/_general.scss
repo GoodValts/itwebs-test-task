@@ -1,0 +1,19 @@
+$colorForeground: oklch(12.9% 0.042 264.695);
+$colorBackground: oklch(98.4% 0.003 247.858);
+$colorMuted: oklch(86.9% 0.022 252.894);
+$colorMutedBg: oklch(55.4% 0.046 257.417);
+$colorPrimary: oklch(60.9% 0.126 221.723);
+
+@mixin onHover {
+	@media (hover: hover) {
+		&:hover {
+			@content;
+		}
+	}
+}
+
+@mixin mediaMobile {
+	@media (max-width: 767.98px) {
+		@content;
+	}
+}

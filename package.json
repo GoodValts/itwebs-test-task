@@ -1,0 +1,40 @@
+{
+	"name": "itwebs-test-task",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev --turbopack",
+		"build": "next build --turbopack",
+		"start": "next start",
+		"lint": "eslint",
+		"check": "prettier . --check",
+		"format": "prettier . --write",
+		"prepare": "husky"
+	},
+	"dependencies": {
+		"@tanstack/react-query": "^5.90.2",
+		"@trpc/client": "^11.6.0",
+		"@trpc/react-query": "^11.6.0",
+		"@trpc/server": "^11.6.0",
+		"client-only": "^0.0.1",
+		"next": "15.5.4",
+		"react": "19.1.0",
+		"react-dom": "19.1.0",
+		"server-only": "^0.0.1",
+		"zod": "^4.1.11"
+	},
+	"devDependencies": {
+		"@eslint/eslintrc": "^3",
+		"@ianvs/prettier-plugin-sort-imports": "^4.7.0",
+		"@types/node": "^20",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"eslint": "^9",
+		"eslint-config-next": "15.5.4",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.2.3",
+		"prettier": "^3.6.2",
+		"sass": "^1.93.2",
+		"typescript": "^5"
+	}
+}
