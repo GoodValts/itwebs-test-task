@@ -3,6 +3,7 @@
 .button {
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	gap: size(2);
 	color: $colorBackground;
 	background-color: $colorPrimary;
