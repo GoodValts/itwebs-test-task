@@ -11,11 +11,12 @@ import styles from './page.module.scss';
 
 export default function CSR() {
 	const [data, setData] = useState<Post[]>([]);
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<{ code: number; message: string } | null>(null);
 
 	useEffect(() => {
 		(async () => {
+			setIsLoading(true);
 			const res = await fetch('https://jsonplaceholder.typicode.com/posts');
 
 			if (!res.ok) {
@@ -27,6 +28,7 @@ export default function CSR() {
 			}
 
 			setData(await res.json());
+			setIsLoading(false);
 		})();
 	}, []);
 
