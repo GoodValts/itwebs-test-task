@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev --turbopack",
+		"dev": "concurrently \"next dev --turbopack\" \"WS_PORT=3001 tsx -r dotenv/config server/ws-server.ts\"",
 		"build": "next build --turbopack",
 		"start": "next start",
 		"lint": "eslint",
@@ -21,6 +21,7 @@
 		"@trpc/server": "^11.6.0",
 		"@vercel/blob": "^2.0.0",
 		"client-only": "^0.0.1",
+		"date-fns": "^4.1.0",
 		"dotenv": "^17.2.3",
 		"drizzle-orm": "^0.44.5",
 		"lucide-react": "^0.544.0",
@@ -31,6 +32,7 @@
 		"react-hook-form": "^7.63.0",
 		"server-only": "^0.0.1",
 		"superjson": "^2.2.2",
+		"ws": "^8.18.3",
 		"zod": "^4.1.11"
 	},
 	"devDependencies": {
@@ -40,6 +42,8 @@
 		"@types/pg": "^8.15.5",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
+		"@types/ws": "^8.18.1",
+		"concurrently": "^9.2.1",
 		"drizzle-kit": "^0.31.5",
 		"eslint": "^9",
 		"eslint-config-next": "15.5.4",

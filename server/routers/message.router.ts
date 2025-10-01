@@ -1,13 +1,18 @@
+import { on } from 'events';
 import { db } from '@server/db';
 import { tableMessage } from '@server/db/tables';
+import { chatEvents } from '@server/realtime/events';
 import { messageSchema } from '@server/validatiion/message.schema';
+import { asc } from 'drizzle-orm';
 
-import { publicProcedure } from '../trpc';
+import { createTRPCRouter, publicProcedure } from '../trpc';
 
-export const messageRouter = {
-	insert: publicProcedure.input(messageSchema).mutation(async (opts) => {
-		const input = opts.input;
+export const messageRouter = createTRPCRouter({
+	list: publicProcedure.query(async () => {
+		return db.select().from(tableMessage).orderBy(asc(tableMessage.created));
+	}),
 
+	insert: publicProcedure.input(messageSchema).mutation(async ({ input }) => {
 		const res = await db
 			.insert(tableMessage)
 			.values({
@@ -16,6 +21,14 @@ export const messageRouter = {
 				name: input.name,
 			})
 			.returning();
+		const inserted = res?.[0];
+		if (inserted) chatEvents.emit('message:new', inserted);
 		return res;
 	}),
-};
+
+	onMessage: publicProcedure.subscription(async function* (opts) {
+		for await (const [payload] of on(chatEvents, 'message:new', { signal: opts.signal })) {
+			yield payload;
+		}
+	}),
+});

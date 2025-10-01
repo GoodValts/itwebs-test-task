@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import type { QueryClient } from '@tanstack/react-query';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { httpBatchLink } from '@trpc/client';
-import { createTRPCReact } from '@trpc/react-query';
+import { createTRPCReact, createWSClient, wsLink } from '@trpc/react-query';
 import superjson from 'superjson';
 
 import { makeQueryClient } from './query-client';
@@ -22,15 +21,16 @@ function getQueryClient() {
 	return (clientQueryClientSingleton ??= makeQueryClient());
 }
 
-function getUrl() {
-	const base = (() => {
-		if (typeof window !== 'undefined') return '';
-		if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+function getWsUrl() {
+	if (typeof window !== 'undefined') {
+		const env = process.env.NEXT_PUBLIC_WS_URL;
+		if (env) return env;
+		const protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+		return `${protocol}://${location.hostname}:3001`;
+	}
 
-		return 'http://localhost:3000';
-	})();
-
-	return `${base}/api/trpc`;
+	const env = process.env.NEXT_PUBLIC_WS_URL ?? process.env.WS_URL;
+	return env ?? 'ws://localhost:3001';
 }
 
 export function TRPCProvider(
@@ -43,8 +43,8 @@ export function TRPCProvider(
 	const [trpcClient] = useState(() =>
 		trpc.createClient({
 			links: [
-				httpBatchLink({
-					url: getUrl(),
+				wsLink({
+					client: createWSClient({ url: getWsUrl() }),
 					transformer: superjson,
 				}),
 			],
