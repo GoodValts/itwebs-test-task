@@ -33,7 +33,7 @@ export const Chat = () => {
 
 			{isOpen && (
 				<div className={styles.content}>
-					{name && (
+					{name && !!listMessages.data?.length && (
 						<div className={styles.messages}>
 							{(listMessages.data ?? []).map((el) => (
 								<Message key={el.messageId} message={el} />

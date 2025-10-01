@@ -80,7 +80,8 @@ export const ChatForm = () => {
 
 	const onSubmit = async (data: z.infer<typeof messageSchema>) => {
 		const clearForm = () => {
-			form.reset();
+			form.resetField('text');
+			form.resetField('fileUrl');
 			setFileName('');
 		};
 
