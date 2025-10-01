@@ -7,6 +7,8 @@ import {
 	MAX_TEXTAREA_VALUE_LENGTH,
 	messageSchema,
 } from '@server/validatiion/message.schema';
+import { TRPCClientErrorBase } from '@trpc/react-query';
+import { DefaultErrorShape } from '@trpc/server/unstable-core-do-not-import';
 import { upload } from '@vercel/blob/client';
 import { CircleArrowRight, CircleX, Paperclip, SendHorizonal } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -77,7 +79,22 @@ export const ChatForm = () => {
 	};
 
 	const onSubmit = async (data: z.infer<typeof messageSchema>) => {
-		insertMessage.mutateAsync(data);
+		const clearForm = () => {
+			form.reset();
+			setFileName('');
+		};
+
+		insertMessage.mutateAsync(data, {
+			onSuccess: clearForm,
+			onError: (err: TRPCClientErrorBase<DefaultErrorShape>) => {
+				form.setError('fileUrl', {
+					type: 'server',
+					message: `Error: ${err.data?.httpStatus}: upload error`,
+				});
+
+				setTimeout(() => clearForm(), 5000);
+			},
+		});
 	};
 
 	const textFieldRegistration = form.register('text', {
