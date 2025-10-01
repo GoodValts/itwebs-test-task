@@ -1,4 +1,4 @@
-import { messageSchema } from '@server/schemas/message.schema';
+import { messageSchema } from '@server/validatiion/message.schema';
 
 import { publicProcedure } from '../trpc';
 

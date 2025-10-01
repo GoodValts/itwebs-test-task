@@ -5,7 +5,7 @@ import {
 	MAX_BYTES,
 	MAX_TEXTAREA_VALUE_LENGTH,
 	messageSchema,
-} from '@server/schemas/message.schema';
+} from '@server/validatiion/message.schema';
 import { upload } from '@vercel/blob/client';
 import { CircleX, Paperclip, SendHorizonal } from 'lucide-react';
 import { useForm } from 'react-hook-form';
