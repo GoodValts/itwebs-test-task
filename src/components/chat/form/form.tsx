@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { trpc } from '@server/client';
 import {
 	ALLOWED_TYPES,
 	MAX_BYTES,
@@ -7,10 +8,11 @@ import {
 	messageSchema,
 } from '@server/validatiion/message.schema';
 import { upload } from '@vercel/blob/client';
-import { CircleX, Paperclip, SendHorizonal } from 'lucide-react';
+import { CircleArrowRight, CircleX, Paperclip, SendHorizonal } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 
+import { useName } from '@/lib/name-provider';
 import { Button } from '@/components/ui/button/button';
 import { Loader } from '@/components/ui/loader/loader';
 
@@ -18,18 +20,22 @@ import styles from './form.module.scss';
 import { resizeTextarea } from './resizeTextarea';
 
 export const ChatForm = () => {
+	const { name, setName } = useName();
+
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 
 	const [fileLoading, setFileLoading] = useState(false);
-
 	const [fileName, setFileName] = useState('');
+
+	const insertMessage = trpc.message.insert.useMutation();
 
 	const form = useForm<z.infer<typeof messageSchema>>({
 		resolver: zodResolver(messageSchema),
 		defaultValues: {
 			text: '',
 			fileUrl: undefined,
+			name: name,
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -71,7 +77,7 @@ export const ChatForm = () => {
 	};
 
 	const onSubmit = async (data: z.infer<typeof messageSchema>) => {
-		console.log(data);
+		insertMessage.mutateAsync(data);
 	};
 
 	const textFieldRegistration = form.register('text', {
@@ -85,88 +91,115 @@ export const ChatForm = () => {
 
 	return (
 		<form className={styles.form} onSubmit={form.handleSubmit(onSubmit)}>
-			<textarea
-				rows={1}
-				placeholder="Message..."
-				{...form.register('text')}
-				className={styles.textarea}
-				ref={(element) => {
-					textFieldRegistration.ref(element);
-					textareaRef.current = element;
-				}}
-			/>
-			{form.formState.errors.text && !fileLoading && (
-				<p className={`${styles.error} ${styles.errorText}`}>
-					{MAX_TEXTAREA_VALUE_LENGTH - (form.watch('text')?.length ?? 0)}
-				</p>
-			)}
-			<input
-				className={styles.downloadInput}
-				type="file"
-				accept={ALLOWED_TYPES.join(',')}
-				ref={fileInputRef}
-				onClick={(e) => {
-					e.currentTarget.value = '';
-					form.clearErrors('fileUrl');
-				}}
-				onChange={async (event) => handleUpload(event)}
-			/>
-			<Button
-				type="button"
-				variant="ghost"
-				className={styles.downloadBtn}
-				onClick={() => fileInputRef.current?.click()}
-			>
-				<Paperclip size={16} />
-			</Button>
-			{(form.formState.errors.fileUrl || form.formState.errors.text) && (
-				<div className={styles.error}>
-					{form.formState.errors.fileUrl && (
+			{!name ? (
+				<>
+					<input
+						className={styles.input}
+						placeholder="Name..."
+						{...form.register('name')}
+						type="text"
+					/>
+					{form.watch('name').trim() && (
 						<Button
 							type="button"
 							variant="ghost"
-							className={styles.errorButton}
+							className={styles.submitBtn}
 							onClick={() => {
-								form.setValue('fileUrl', undefined);
-								form.clearErrors('fileUrl');
-								form.trigger();
+								const name = form.watch('name').trim();
+								setName(name);
+								form.setValue('name', name);
 							}}
 						>
-							<CircleX size={12} />
+							<CircleArrowRight size={16} />
 						</Button>
 					)}
-					<p className={styles.errorMessage}>
-						{form.formState.errors.fileUrl?.message ?? form.formState.errors.text?.message}
-					</p>
-				</div>
-			)}
-			{fileName && (
-				<div className={styles.file}>
+				</>
+			) : (
+				<>
+					<textarea
+						rows={1}
+						placeholder="Message..."
+						{...form.register('text')}
+						className={styles.textarea}
+						ref={(element) => {
+							textFieldRegistration.ref(element);
+							textareaRef.current = element;
+						}}
+					/>
+					{form.formState.errors.text && !(fileLoading || insertMessage.isPending) && (
+						<p className={`${styles.error} ${styles.errorText}`}>
+							{MAX_TEXTAREA_VALUE_LENGTH - (form.watch('text')?.length ?? 0)}
+						</p>
+					)}
+					<input
+						className={styles.downloadInput}
+						type="file"
+						accept={ALLOWED_TYPES.join(',')}
+						ref={fileInputRef}
+						onClick={(e) => {
+							e.currentTarget.value = '';
+							form.clearErrors('fileUrl');
+						}}
+						onChange={async (event) => handleUpload(event)}
+					/>
 					<Button
 						type="button"
 						variant="ghost"
-						className={styles.fileButton}
-						onClick={() => {
-							form.setValue('fileUrl', undefined);
-							setFileName('');
-							form.trigger();
-						}}
+						className={styles.downloadBtn}
+						onClick={() => fileInputRef.current?.click()}
 					>
-						<CircleX size={12} />
+						<Paperclip size={16} />
 					</Button>
+					{(form.formState.errors.fileUrl || form.formState.errors.text) && (
+						<div className={styles.error}>
+							{form.formState.errors.fileUrl && (
+								<Button
+									type="button"
+									variant="ghost"
+									className={styles.errorButton}
+									onClick={() => {
+										form.setValue('fileUrl', undefined);
+										form.clearErrors('fileUrl');
+										form.trigger();
+									}}
+								>
+									<CircleX size={12} />
+								</Button>
+							)}
+							<p className={styles.errorMessage}>
+								{form.formState.errors.fileUrl?.message ?? form.formState.errors.text?.message}
+							</p>
+						</div>
+					)}
+					{fileName && (
+						<div className={styles.file}>
+							<Button
+								type="button"
+								variant="ghost"
+								className={styles.fileButton}
+								onClick={() => {
+									form.setValue('fileUrl', undefined);
+									setFileName('');
+									form.trigger();
+								}}
+							>
+								<CircleX size={12} />
+							</Button>
 
-					<p className={styles.fileMessage}>{fileName} </p>
-				</div>
-			)}
-			{fileLoading && (
-				<div className={styles.loaderContainer}>
-					<Loader />
-				</div>
-			)}
-			{form.formState.isValid && !fileLoading && (
-				<Button type="submit" variant="ghost" className={styles.submitBtn}>
-					<SendHorizonal size={16} />
-				</Button>
+							<p className={styles.fileMessage}>{fileName} </p>
+						</div>
+					)}
+					{(fileLoading || insertMessage.isPending) && (
+						<div className={styles.loaderContainer}>
+							<Loader />
+						</div>
+					)}
+					{form.formState.isValid && !(fileLoading || insertMessage.isPending) && (
+						<Button type="submit" variant="ghost" className={styles.submitBtn}>
+							<SendHorizonal size={16} />
+						</Button>
+					)}
+				</>
 			)}
 		</form>
 	);

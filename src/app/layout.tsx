@@ -5,6 +5,7 @@ import './globals.scss';
 
 import { TRPCProvider } from '@server/client';
 
+import { NameProvider } from '@/lib/name-provider';
 import { Chat } from '@/components/chat/chat';
 
 const geistSans = Geist({
@@ -31,8 +32,10 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable}`}>
 				<TRPCProvider>
-					{children}
-					<Chat />
+					<NameProvider>
+						{children}
+						<Chat />
+					</NameProvider>
 				</TRPCProvider>
 			</body>
 		</html>

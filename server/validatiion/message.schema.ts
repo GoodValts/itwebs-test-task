@@ -4,7 +4,7 @@ export const MAX_TEXTAREA_VALUE_LENGTH = 100;
 export const MAX_BYTES = 4 * 1024 * 1024;
 export const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
-export const pgMessageSchema = z
+export const messageSchema = z
 	.object({
 		text: z
 			.string()
@@ -12,6 +12,7 @@ export const pgMessageSchema = z
 			.max(MAX_TEXTAREA_VALUE_LENGTH, { message: 'message too long' })
 			.optional(),
 		fileUrl: z.url({ message: 'invalid url' }).optional(),
+		name: z.string(),
 	})
 	.superRefine((val, ctx) => {
 		if (!val.text?.length && !val.fileUrl) {
