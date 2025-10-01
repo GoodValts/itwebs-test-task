@@ -2,7 +2,7 @@
 
 import styles from './button.module.scss';
 
-type Variants = 'default' | 'destructive';
+type Variants = 'default' | 'destructive' | 'ghost';
 
 export const Button = ({
 	className,
@@ -15,6 +15,7 @@ export const Button = ({
 	const decorator: Record<Variants, string | undefined> = {
 		default: undefined,
 		destructive: styles.buttonDestructive,
+		ghost: styles.buttonGhost,
 	};
 
 	return (

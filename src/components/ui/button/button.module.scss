@@ -24,4 +24,14 @@
 			background-color: $colorDestructiveLight;
 		}
 	}
+
+	&Ghost {
+		color: $colorPrimary;
+		background-color: transparent;
+
+		@include onHover() {
+			color: $colorPrimaryLight;
+			background-color: transparent;
+		}
+	}
 }

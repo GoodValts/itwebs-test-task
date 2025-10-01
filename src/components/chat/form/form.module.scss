@@ -1,0 +1,105 @@
+@use '@/app/general' as *;
+
+.form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: $colorBackground;
+}
+
+.textarea {
+	width: 100%;
+	box-sizing: border-box;
+	line-height: 1.5;
+
+	background-color: $colorBackground;
+	border: none;
+	padding: size(2) size(8) size(2) size(8);
+	overflow-y: auto;
+	resize: none;
+
+	&:focus,
+	&:focus-visible {
+		outline: none;
+		box-shadow: none;
+	}
+}
+
+.download {
+	&Input {
+		width: 0;
+		height: 0;
+	}
+
+	&Btn {
+		position: absolute;
+		left: 0;
+		color: $colorMuted;
+
+		@include onHover() {
+			color: $colorForeground;
+		}
+	}
+}
+
+.submitBtn {
+	position: absolute;
+	right: 0;
+}
+
+.error {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: size(1);
+	width: 100%;
+	color: $colorDestructive;
+	padding: size(1);
+	padding-top: 0;
+
+	&Message {
+		font-size: $fontSm;
+	}
+
+	&Text {
+		width: auto;
+		position: absolute;
+		right: size(3);
+		font-size: $fontSm;
+	}
+
+	&Button {
+		color: $colorDestructive;
+		padding: 0;
+
+		@include onHover() {
+			color: $colorDestructiveLight;
+		}
+	}
+}
+
+.file {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: size(1);
+	width: 100%;
+	color: $colorPrimary;
+	padding: size(1);
+	padding-top: 0;
+
+	&Message {
+		font-size: $fontSm;
+	}
+
+	&Button {
+		padding: 0;
+	}
+}
+
+.loaderContainer {
+	position: absolute;
+	right: size(3);
+	scale: 0.5;
+}
