@@ -1,5 +1,11 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import {
+	ALLOWED_TYPES,
+	MAX_BYTES,
+	MAX_TEXTAREA_VALUE_LENGTH,
+	messageSchema,
+} from '@server/schemas/message.schema';
 import { upload } from '@vercel/blob/client';
 import { CircleX, Paperclip, SendHorizonal } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -10,7 +16,6 @@ import { Loader } from '@/components/ui/loader/loader';
 
 import styles from './form.module.scss';
 import { resizeTextarea } from './resizeTextarea';
-import { ALLOWED_TYPES, chatSchema, MAX_BYTES, MAX_TEXTAREA_VALUE_LENGTH } from './schema';
 
 export const ChatForm = () => {
 	const fileInputRef = useRef<HTMLInputElement>(null);
@@ -20,8 +25,8 @@ export const ChatForm = () => {
 
 	const [fileName, setFileName] = useState('');
 
-	const form = useForm<z.infer<typeof chatSchema>>({
-		resolver: zodResolver(chatSchema),
+	const form = useForm<z.infer<typeof messageSchema>>({
+		resolver: zodResolver(messageSchema),
 		defaultValues: {
 			text: '',
 			fileUrl: undefined,
@@ -65,7 +70,7 @@ export const ChatForm = () => {
 		form.trigger();
 	};
 
-	const onSubmit = async (data: z.infer<typeof chatSchema>) => {
+	const onSubmit = async (data: z.infer<typeof messageSchema>) => {
 		console.log(data);
 	};
 

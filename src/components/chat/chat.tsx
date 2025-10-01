@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { trpc } from '@server/client';
 import { MessageCircleMore, MessageCircleX } from 'lucide-react';
 
 import { Button } from '../ui/button/button';
@@ -10,6 +11,8 @@ import { ChatForm } from './form/form';
 export const Chat = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
+	const test = trpc.test.useQuery({ text: 'test text' });
+
 	return (
 		<div className={styles.container}>
 			<Button className={styles.trigger} onClick={() => setIsOpen(!isOpen)}>
@@ -18,8 +21,7 @@ export const Chat = () => {
 			</Button>
 			{isOpen && (
 				<div className={styles.content}>
-					<div>messages</div>
-
+					<div>{test.data}</div>
 					<ChatForm />
 				</div>
 			)}

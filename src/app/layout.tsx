@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 
 import './globals.scss';
 
+import { TRPCProvider } from '@server/client';
+
 import { Chat } from '@/components/chat/chat';
 
 const geistSans = Geist({
@@ -28,8 +30,10 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable}`}>
-				{children}
-				<Chat />
+				<TRPCProvider>
+					{children}
+					<Chat />
+				</TRPCProvider>
 			</body>
 		</html>
 	);
