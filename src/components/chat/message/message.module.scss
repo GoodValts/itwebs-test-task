@@ -1,0 +1,38 @@
+@use '@/app/general' as *;
+
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: size(1);
+	color: $colorBackground;
+	background-color: $colorSecondaryBg;
+	border-radius: size(4);
+	padding: size(2) size(3);
+	margin-right: auto;
+
+	&.right {
+		background-color: $colorMuted;
+	}
+}
+
+.name {
+	color: $colorSecondary;
+}
+
+.image {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	border-radius: size(2);
+}
+
+.date {
+	font-size: $fontSm;
+	color: $colorMutedBg;
+	margin-left: auto;
+}
+
+.right {
+	margin-right: 0;
+	margin-left: auto;
+}

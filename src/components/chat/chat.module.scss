@@ -30,3 +30,12 @@
 		width: 286px;
 	}
 }
+
+.messages {
+	display: flex;
+	flex-direction: column;
+	gap: size(2);
+	background-color: $colorBackground;
+	overflow-y: scroll;
+	padding: size(3);
+}
