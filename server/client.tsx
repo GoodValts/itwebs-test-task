@@ -23,14 +23,15 @@ function getQueryClient() {
 
 function getWsUrl() {
 	if (typeof window !== 'undefined') {
-		const env = process.env.NEXT_PUBLIC_WS_URL;
-		if (env) return env;
-		const protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-		return `${protocol}://${location.hostname}:3001`;
+		const envUrl = process.env.NEXT_PUBLIC_WS_URL;
+		if (!envUrl) throw new Error('NEXT_PUBLIC_WS_URL not found');
+		return envUrl;
 	}
 
 	const env = process.env.NEXT_PUBLIC_WS_URL ?? process.env.WS_URL;
-	return env ?? 'ws://localhost:3001';
+
+	if (!env) throw new Error('ws urls not found');
+	return env;
 }
 
 export function TRPCProvider(
