@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 $colorForeground: oklch(12.9% 0.042 264.695);
 $colorBackground: oklch(98.4% 0.003 247.858);
 
@@ -27,7 +29,7 @@ $sizeMap: (
 );
 
 @function size($key) {
-	@return map-get($sizeMap, $key);
+	@return map.get($sizeMap, $key);
 }
 
 @mixin onHover {
