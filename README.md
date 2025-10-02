@@ -59,7 +59,7 @@ Then, follow these steps:
 1. clone repository: `git clone git@github.com:GoodValts/itwebs-test-task.git`
 1. navigate to the project directory: `cd itwebs-test-task`
 1. install dependencies: `pnpm install`
-1. rename `.env..env.example` to `.env`
+1. rename `.env.example` to `.env`
 1. create a vercel blob storage, then paste token to `.env` (`BLOB_READ_WRITE_TOKEN`)
 1. run docker containers `docker-compose up -d` (required linux, or macOS, or wsl)
 1. generate migrations `pnpm run db:generate`
