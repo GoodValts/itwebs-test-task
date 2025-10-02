@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# mindbox-test-task
 
-## Getting Started
+### Contents
 
-First, run the development server:
+- [Description](#description)
+- [Stack](#stack)
+- [Install](#install)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Description
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Test task for the frontend position: [link](https://www.notion.so/Frontend-Next-2638faf77184803a8c1ccb30205d11e4).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+[Deploy](https://itwebs-test-task-flame.vercel.app/)
 
-## Learn More
+## Stack
 
-To learn more about Next.js, take a look at the following resources:
+Stack:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Next.js
+- TypeScript
+- SCSS
+- React Hook Form
+- Zod
+- tRPC (websockets)
+- DrizzleORM
+- PostgreSQL
+- docker
+- Vercel Blob
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Install
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<details>
+  <summary>Limited (not recommended)</summary>
+  
+!NB: *chat is not supported*
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To start the application, please make sure you have [Git](https://git-scm.com) and [Node.js](https://nodejs.org) installed on your machine. Then, follow these steps:
+
+1. clone repository: `git clone https://github.com/GoodValts/itwebs-test-task.git`
+1. navigate to the project directory: `cd itwebs-test-task`
+1. install dependencies: `npm install`
+1. rename `.env..env.example` to `.env`
+1. start app: `npm run dev`
+1. open the link or navigate to `http://localhost:3000/`
+
+</details>
+
+<details>
+  <summary>Full</summary>
+
+To start the application, please make sure you have [Git](https://git-scm.com) and [Node.js](https://nodejs.org) and [docker](https://www.docker.com/get-started/) installed on your machine.
+
+Then, follow these steps:
+
+1. clone repository: `git clone git@github.com:GoodValts/itwebs-test-task.git`
+1. navigate to the project directory: `cd itwebs-test-task`
+1. install dependencies: `pnpm install`
+1. rename `.env..env.example` to `.env`
+1. create a vercel blob storage, then paste token to `.env` (`BLOB_READ_WRITE_TOKEN`)
+1.
+1. generate migrations `pnpm run db:generate`
+1. run migrations `pnpm run db:migrate`
+1. start app: `pnpm run dev`
+1. open link to deploy (http://localhost:3000)
+1. enjoy
+
+</details>
