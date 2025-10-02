@@ -35,8 +35,8 @@ Stack:
 
 <details>
   <summary>Limited (not recommended)</summary>
-  
-!NB: *chat is not supported*
+
+!NB: _chat is not supported_
 
 To start the application, please make sure you have [Git](https://git-scm.com) and [Node.js](https://nodejs.org) installed on your machine. Then, follow these steps:
 
@@ -61,11 +61,11 @@ Then, follow these steps:
 1. install dependencies: `pnpm install`
 1. rename `.env..env.example` to `.env`
 1. create a vercel blob storage, then paste token to `.env` (`BLOB_READ_WRITE_TOKEN`)
-1.
+1. run docker containers `docker-compose up -d` (required linux, or macOS, or wsl)
 1. generate migrations `pnpm run db:generate`
 1. run migrations `pnpm run db:migrate`
 1. start app: `pnpm run dev`
 1. open link to deploy (http://localhost:3000)
-1. enjoy
+1. enjoy of websockets on tRPC
 
 </details>
