@@ -4,7 +4,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: size(2);
-	border: 1px solid $colorPrimary;
+	border: size(px) solid $colorPrimary;
 	border-radius: size(2);
 	background-color: $colorBackground;
 	padding: size(2);

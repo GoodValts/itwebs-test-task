@@ -10,7 +10,7 @@ export const Loader = () => {
 					style={{
 						scale: 1 - idx / 10,
 						opacity: 1 - idx / 10,
-						transform: `translate(${16 / (1 - idx / 10)}px)`,
+						transform: `translate(${1 / (1 - idx / 10)}rem)`,
 						rotate: `${idx * 45}deg`,
 					}}
 				/>

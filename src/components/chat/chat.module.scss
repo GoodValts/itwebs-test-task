@@ -18,16 +18,16 @@
 .content {
 	display: flex;
 	flex-direction: column;
-	gap: 1px;
-	width: 320px;
-	max-height: calc(100vh - 96px);
+	gap: size(px);
+	width: size(xs);
+	max-height: calc(100vh - size(24));
 	background-color: $colorPrimary;
-	border: 1px solid $colorPrimary;
+	border: size(px) solid $colorPrimary;
 	border-radius: size(2);
 	overflow: hidden;
 
 	@include media(sm) {
-		width: 286px;
+		width: size(2xs);
 	}
 }
 

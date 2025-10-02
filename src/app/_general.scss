@@ -21,23 +21,26 @@ $fontLg: 1.2rem;
 $fontXl: 1.5rem;
 
 $sizeMap: (
-	0: 0,
-	1: 4px,
-	2: 8px,
-	3: 12px,
-	4: 16px,
-	5: 20px,
-	6: 24px,
-	8: 32px,
+	px: 1px,
+	1: 0.25rem,
+	2: 0.5rem,
+	3: 0.75rem,
+	4: 1rem,
+	5: 1.25rem,
+	6: 1.5rem,
+	8: 2rem,
+	24: 6rem,
+	2xs: 18rem,
+	xs: 20rem,
 );
 
 $mediaMap: (
-	xs: 479.98px,
-	sm: 639.98px,
-	md: 767.98px,
-	lg: 1023.98px,
-	xl: 1279.98px,
-	2xl: 1535.98px,
+	xs: 30rem,
+	sm: 40rem,
+	md: 48rem,
+	lg: 64rem,
+	xl: 80rem,
+	2xl: 96rem,
 );
 
 @function size($key) {
