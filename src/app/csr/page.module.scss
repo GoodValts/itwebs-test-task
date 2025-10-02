@@ -13,6 +13,22 @@
 	grid-template-columns: repeat(5, 1fr);
 	gap: size(5);
 	padding: size(6);
+
+	@include media(2xl) {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	@include media(xl) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	@include media(lg) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@include media(sm) {
+		grid-template-columns: repeat(1, 1fr);
+	}
 }
 
 .loaderContainer {
