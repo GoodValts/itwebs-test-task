@@ -9,6 +9,11 @@
 	justify-content: center;
 	align-items: end;
 	gap: size(2);
+
+	@include media(xs) {
+		right: size(2);
+		bottom: size(2);
+	}
 }
 
 .trigger {
