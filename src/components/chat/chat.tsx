@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { trpc } from '@server/client';
 import { MessageCircleMore, MessageCircleX } from 'lucide-react';
 
@@ -15,6 +15,8 @@ export const Chat = () => {
 	const { name } = useName();
 	const [isOpen, setIsOpen] = useState(false);
 
+	const lastRef = useRef<HTMLDivElement>(null);
+
 	const listMessages = trpc.message.list.useQuery();
 	const utils = trpc.useUtils();
 
@@ -23,6 +25,13 @@ export const Chat = () => {
 			utils.message.list.setData(undefined, (prev) => (prev ? [...prev, newMsg] : [newMsg]));
 		},
 	});
+
+	useEffect(() => {
+		if (!(isOpen && lastRef.current)) return;
+
+		lastRef.current?.focus({ preventScroll: true });
+		lastRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+	}, [isOpen, name]);
 
 	return (
 		<div className={styles.container}>
@@ -38,6 +47,7 @@ export const Chat = () => {
 							{(listMessages.data ?? []).map((el) => (
 								<Message key={el.messageId} message={el} />
 							))}
+							<span ref={lastRef} />
 						</div>
 					)}
 
